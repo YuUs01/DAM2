@@ -1,7 +1,15 @@
 // Volcado hexadecimal de un fichero con FileInputStream
 package accesosecuencial;
 /*
-Ahora un ejemplo con flujos binarios. El siguiente programa hace un volcado binario de un fichero indicado desde línea de comandos. Los contenidos del fichero se leen en bloques de 32 bytes, y el contenido de cada bloque se escribe en una línea de texto. Los bytes se escriben en hexadecimal (base 16) y, por tanto, cada byte se escribe utilizando dos caracteres1. El programa muestra como máximo los primeros 2 kilobytes (MAX_BYTES=2048). Por supuesto, este programa se puede utilizar tanto con ficheros binarios como con ficheros de texto. Hacer notar que esta clase permite hacer el volcado binario de un InputStream, y un FileInputStream es un caso particular. Siempre que sea posible, debemos hacer que las clases que desarrollemos funcionen con streams en general, y no solo con ficheros en particular.
+Ahora un ejemplo con flujos binarios.
+El siguiente programa hace un volcado binario de un fichero indicado desde línea de comandos.
+Los contenidos del fichero se leen en bloques de 32 bytes, y el contenido de cada bloque se escribe en una línea de texto.
+Los bytes se escriben en hexadecimal (base 16) y, por tanto, cada byte se escribe utilizando dos caracteres1.
+El programa muestra como máximo los primeros 2 kilobytes (MAX_BYTES=2048).
+Por supuesto, este programa se puede utilizar tanto con ficheros binarios como con ficheros de texto.
+Hacer notar que esta clase permite hacer el volcado binario de un InputStream, y un FileInputStream es un caso particular.
+Siempre que sea posible, debemos hacer que las clases que desarrollemos funcionen con streams en general,
+y no solo con ficheros en particular.
  */
 import java.io.InputStream;
 import java.io.FileInputStream;
