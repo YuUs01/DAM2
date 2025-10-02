@@ -20,8 +20,9 @@ public class BusquedaDeTexto {
             while (linea != null){
                 i++;
                 if (linea.contains(palabra)){
-                    System.out.println("En la línea" + i + " se encuentra la palabra " + palabra);
+                    System.out.println("En la línea " + i + " se encuentra la palabra " + palabra);
                 }
+                System.out.println("Línea [" + i + "] " + linea);
                 linea = fbr.readLine();
             }
 
