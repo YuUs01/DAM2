@@ -13,6 +13,20 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.NamedNodeMap;
 import org.xml.sax.SAXException;
 
+/*
+ *El siguiente programa obtiene un documento DOM a partir de un fichero XML y muestra sus contenidos.
+ * El parsing en sí es sencillo, cinco líneas de código para crear y configurar un DocumentBuilderFactory,
+ * crear un DocumentBuilder e invocar su método parse().
+ *El grueso del programa es la parte que muestra los contenidos del documento, a saber, el método muestraNodo.
+ *Para mostrar el árbol entero se le pasa el nodo raíz.
+ *El parámetro nivel (0 para el nodo raíz) se utiliza para mostrar los contenidos del nodo con la indentación apropiada.
+ *Una vez se han mostrado los detalles del nodo, se obtiene la lista de nodos hijos y se muestran sus contenidos
+ *llamando de nuevo a muestraNodo para cada uno de ellos, incrementando nivel en uno.
+ *Se hace una verificación previa para ignorar los nodos de texto que solo tienen espacios en blanco o saltos de línea.
+ *muestraNodo escribe a un PrintStream que se le pasa como parámetro.
+ *Esto permite, de manera muy sencilla, dirigir la salida a un fichero cualquiera, por ejemplo, en lugar de a System.out.
+ */
+
 public class DOMParser {
 
     // Constante para definir la cadena que se usará para la indentación en la salida.
@@ -55,7 +69,7 @@ public class DOMParser {
                         + ", codificación: " + doc.getXmlEncoding());
                 break;
 
-            // Caso 2: El nodo es un elemento o etiqueta XML (ej: <libro>)
+            // Caso 2: El nodo es un elemento o etiqueta XML (ej.: <libro>)
             case Node.ELEMENT_NODE:
                 ps.print("<" + nodo.getNodeName());
                 // Obtenemos el mapa de atributos del elemento.
