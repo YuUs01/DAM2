@@ -94,7 +94,7 @@ public class FicheroAccesoAleatorio {
             // Posiciona el puntero de escritura en el lugar correcto.
             // La posición se calcula multiplicando la posición del registro por la longitud de cada registro.
             faa.seek(pos * this.longReg);
-
+                                                                    
             // Itera sobre los campos definidos para el registro.
             for (Pair<String, Integer> campo: this.campos) {
                 String nomCampo=campo.getKey();
