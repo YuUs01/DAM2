@@ -11,7 +11,10 @@ Hacer notar que esta clase permite hacer el volcado binario de un InputStream, y
 Siempre que sea posible, debemos hacer que las clases que desarrollemos funcionen con streams en general,
 y no solo con ficheros en particular.
  */
-import java.io.*;
+import java.io.InputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * Clase que permite realizar un volcado binario (en formato hexadecimal) de un fichero.
@@ -37,7 +40,7 @@ public class VolcadoBinario {
      * Lee el fichero en bloques, convierte los bytes a hexadecimal y los imprime en la consola.
      * @throws IOException Si ocurre un error de entrada/salida durante la lectura del fichero.
      */
-    public void volcar(PrintStream ps) throws IOException {
+    public void volcar() throws IOException {
         // Un array de bytes que actúa como un buffer para almacenar los datos leídos.
         byte buffer[]=new byte[TAM_FILA];
         // Almacena el número de bytes leídos en cada operación de lectura.
@@ -48,16 +51,16 @@ public class VolcadoBinario {
             // Lee hasta 'TAM_FILA' bytes del stream y los almacena en el buffer.
             bytesLeidos=is.read(buffer);
             // Imprime el offset actual formateado a 5 dígitos.
-            ps.format("[%5d] ", offset);
+            System.out.format("[%5d] ", offset);
             // Itera sobre los bytes leídos en el buffer.
             for(int i=0; i<bytesLeidos; i++) {
                 // Formatea y imprime cada byte en su representación hexadecimal de dos dígitos.
-                ps.format("%2x", buffer[i]);
+                System.out.format("%2x", buffer[i]);
             }
             // Incrementa el offset con el número de bytes que se acaban de leer.
             offset+=bytesLeidos;
             // Salto de línea para la siguiente fila del volcado.
-            ps.println();
+            System.out.println();
         } while (bytesLeidos==TAM_FILA && offset<MAX_BYTES); // Continúa el bucle mientras se lean 'TAM_FILA' bytes y no se haya superado el límite 'MAX_BYTES'.
     }
 
@@ -74,11 +77,11 @@ public class VolcadoBinario {
         // Asigna el primer argumento a la variable 'nomFich'.
         String nomFich=args[0];
         // Usa un 'try-with-resources' para asegurar que el 'FileInputStream' se cierra automáticamente.
-        try (FileInputStream fis = new FileInputStream(nomFich);
-             PrintStream ps = new PrintStream("volcado_salida.txt")) {
-
+        try (FileInputStream fis = new FileInputStream(nomFich)) {
+            // Crea una instancia de 'VolcadoBinario' pasando el 'FileInputStream'.
             VolcadoBinario vb = new VolcadoBinario(fis);
-            vb.volcar(ps);
+            // Llama al método 'volcar' para realizar el volcado del fichero.
+            vb.volcar();
         }
         // Captura la excepción si el fichero no se encuentra.
         catch (FileNotFoundException e) {
