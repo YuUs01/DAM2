@@ -1,4 +1,1 @@
-Hola, este es un texto de prueba.
-Contiene acentos: á, é, í, ó, ú.
-Podemos ver si se convierte correctamente a ISO-8859-1 y UTF-16.
-Fin del texto.
+
