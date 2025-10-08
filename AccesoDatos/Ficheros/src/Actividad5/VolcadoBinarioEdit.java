@@ -79,6 +79,7 @@ public class VolcadoBinarioEdit {
 
             VolcadoBinarioEdit vb = new VolcadoBinarioEdit (fis);
             vb.volcar(ps);
+            System.out.println("Volcado realizado con éxito");
         }
         // Captura la excepción si el fichero no se encuentra.
         catch (FileNotFoundException e) {
