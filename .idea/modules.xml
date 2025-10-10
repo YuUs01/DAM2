@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/DAM2.iml" filepath="$PROJECT_DIR$/.idea/DAM2.iml" />
       <module fileurl="file://$PROJECT_DIR$/AccesoDatos/Excepciones/Excepciones.iml" filepath="$PROJECT_DIR$/AccesoDatos/Excepciones/Excepciones.iml" />
       <module fileurl="file://$PROJECT_DIR$/AccesoDatos/Ficheros/Ficheros.iml" filepath="$PROJECT_DIR$/AccesoDatos/Ficheros/Ficheros.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ProgramacionServiciosProcesos/ProgramacionServiciosProcesos.iml" filepath="$PROJECT_DIR$/ProgramacionServiciosProcesos/ProgramacionServiciosProcesos.iml" />
     </modules>
   </component>
 </project>
