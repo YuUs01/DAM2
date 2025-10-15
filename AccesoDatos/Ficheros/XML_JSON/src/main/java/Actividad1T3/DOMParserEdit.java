@@ -148,7 +148,7 @@ public class DOMParserEdit {
             // 6. Iniciamos el recorrido y la visualización del árbol desde su raíz (el documento)
                 muestraNodo(domDoc, 0, ps);
 
-
+            System.out.println("Programa ejecutado con éxito");
             // Capturamos las excepciones más comunes durante el parseo.
         } catch (FileNotFoundException | ParserConfigurationException | SAXException e) {
             System.err.println(e.getMessage());
