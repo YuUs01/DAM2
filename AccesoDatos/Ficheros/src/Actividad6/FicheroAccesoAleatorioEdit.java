@@ -156,7 +156,7 @@ public class FicheroAccesoAleatorioEdit {
             reg.put("CP", "44126");
             faa.insertar(reg, 1);
 
-            // Inserción en una posición mayor al numero de registros existentes
+            // Inserción en una posición mayor al número de registros existentes
             reg.clear();
             reg.put("DNI", "99999999Z");
             reg.put("NOMBRE", "LEJOS");
