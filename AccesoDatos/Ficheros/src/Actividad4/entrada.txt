@@ -1,0 +1,6 @@
+Hola, esta es una prueba de conversión de archivos.
+Aquí vemos acentos: á, é, í, ó, ú, ü, ñ.
+También símbolos especiales: € © ® ± ÷ ≈ µ ¥ ¿ ¡
+Y caracteres en varios idiomas: こんにちは, Привет, مرحبا
+Emoji de prueba: 😀🔥✨
+Fin del archivo.
