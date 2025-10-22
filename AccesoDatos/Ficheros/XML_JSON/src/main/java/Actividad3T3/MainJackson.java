@@ -27,6 +27,7 @@ public class MainJackson {
             System.out.println("Inventario Guardado de manera correcta");
         }catch (Exception e){
             e.printStackTrace();
+            System.err.println(e);
         }
 
         //Deserializar el archivo json a un objeto de java
