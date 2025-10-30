@@ -6,3 +6,7 @@ public class MiPrimerThread extends Thread{
     }
 }
 
+/*
+se puede hacer implementación de la interfaz runnable
+ */
+
