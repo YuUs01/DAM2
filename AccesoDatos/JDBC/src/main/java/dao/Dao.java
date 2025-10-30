@@ -454,7 +454,32 @@ public class Dao {
             // rs.moveToCurrentRow(); // Opcional: vuelve el cursor a la fila actual antes de la inserción
         }
     }
+    public static void actualizarCliente (Connection conn, List<String[]> datosFinales) throws SQLException {
+        String sqlDelete = "DELETE FROM CLIENTES";
+        String sqlInsert = "INSERT INTO CLIENTS";
+        try (PreparedStatement pstmDelete = conn.prepareStatement(sqlDelete); PreparedStatement pstmInsert = conn.prepareStatement(sqlInsert)) {
+            int filasEliminadas = pstmDelete.executeUpdate();
+            System.out.println("Se eliminaron " + filasEliminadas + " Registros obsoletos");
 
+            for (String[] cliente : datosFinales) {
+                String dni = cliente[0];
+                String apellidos = cliente[1];
+                String cp = cliente[2];
+
+                System.out.println("PROCESANDO CLIENTE:" + dni);
+                sqlInsert = "INSERT INTO clientes (DNI, APELLIDOS, CP) VALUES (?, ?, ?)";
+                pstmInsert.setString(0, dni);
+                pstmInsert.setString(1, apellidos);
+                pstmInsert.setString(2, cp);
+                if (cp == null) {
+                    pstmInsert.setNull(2, Types.CHAR);
+                } else {
+                    pstmInsert.setString(2, cp);
+                }
+                pstmInsert.executeUpdate();
+            }
+        }
+    }
     /**
      * Inserta una lista de clientes en la base de datos utilizando un lote (batch).
      * Este método es mucho más eficiente que hacer un INSERT por cada cliente.

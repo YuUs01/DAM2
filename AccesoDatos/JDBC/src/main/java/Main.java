@@ -1,8 +1,12 @@
 import dao.Dao;
 import dao.DatabaseConnector;
+import pojos.Cliente;
 import print.ImprimirResultados;
 
 import java.sql.Connection;
+import java.sql.Statement;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class Main {
@@ -40,11 +44,20 @@ public class Main {
             //print.imprimirTablas(connection, CATALOGO);
 //
 //            // Insertamos registros en la tabla clientes
-            dao.insertarDatosConStatement(connection, INSERT_CLIENTES);
+//            dao.insertarDatosConStatement(connection, INSERT_CLIENTES);
 //            // Sacamos por consola los registros insertados
-            print.imprimirRegistros(connection, CATALOGO, NOMBRE_TABLA);
+//            print.imprimirRegistros(connection, CATALOGO, NOMBRE_TABLA);
 //
-//            // --- Datos de los 5 nuevos clientes a insertar ---
+
+            List<String[]> datosFinales = Arrays.asList(
+                    new String[]{"78901234X", "Youssef", "44126"},
+                    new String[]{"89012345E", "Youssef", null},
+                    new String[]{"56789012B", "Youssef", "29730"}
+            );
+
+            dao.actualizarCliente(connection, datosFinales);
+            print.imprimirRegistros(connection, CATALOGO, NOMBRE_TABLA);
+            // --- Datos de los 5 nuevos clientes a insertar ---
 //            List<Cliente> nuevosClientes = Arrays.asList(
 //                    new Cliente("12345678A", "Pérez Gómez", 28001),
 //                    new Cliente("23456789B", "López Martín", 41002),
@@ -52,7 +65,7 @@ public class Main {
 //                    new Cliente("45678901D", "Fernández Díaz", 98004),
 //                    new Cliente("56789012E", "Moreno Jiménez", 50005)
 //            );
-//
+
            //dao.insertarClientes(connection, nuevosClientes);
 ////            print.imprimirRegistros(connection, CATALOGO, NOMBRE_TABLA);
 //            List<Cliente> nuevosClientes2 = Arrays.asList(
@@ -63,7 +76,7 @@ public class Main {
 //                    new Cliente("59789012E", "Amalia Jiménez", 50005)
 //            );
 ////            dao.insertarClientesBatchConTransaccion(connection, nuevosClientes2);
-////            print.imprimirRegistros(connection, CATALOGO, NOMBRE_TABLA);
+                print.imprimirRegistros(connection, CATALOGO, NOMBRE_TABLA);
 //
 //            // Preparamos los datos para las nuevas facturas
 //            List<String> dnis = Arrays.asList(
