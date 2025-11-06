@@ -44,7 +44,7 @@ public class ImprimirResultados {
      * El método primero verifica si la tabla existe para evitar errores de SQL.
      * Luego, muestra los nombres de las columnas y después cada fila de datos.
      *
-     * @param conn La conexión activa a la base de datos.
+     * @param conn        La conexión activa a la base de datos.
      * @param nombreTabla El nombre de la tabla de la que se quieren leer los registros.
      * @throws SQLException Si ocurre un error de acceso a la base de datos.
      */
@@ -141,15 +141,42 @@ public class ImprimirResultados {
     }
 
 
-
-
-    /*
-    Ejecut
-     */
+    //Actividad 3 Tema 4
 //    public void mostrarNombresInversoConLista (Connection conn) throws SQLException{
 //
 //        List<String> nombres = new ArrayList<>();
 //        System.out.println("leyendo y guradando en la lista");
 //        try (Statement stmt = conn.prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY));
 //    }
+
+    //Actividad 5 Tema 4
+    public void mostrarClientesPorDNI(Connection conn, String[] dnis) throws SQLException {
+        //1. La plantilla SQL. El ? es un marcador de posición para el DNI
+        String sql = "SELECT * FROM CLIENTES WHERE DNI = ?";
+
+        try (PreparedStatement pstm = conn.prepareStatement(sql)) {
+            // iteramos sobre la lista de DNIs
+            for (String dni : dnis) {
+                // Asignar el valor del DNI al actual primer marcador de posición
+                pstm.setString(1, dni);
+
+
+                try (ResultSet rs = pstm.executeQuery()) {
+                    if (rs.next()) {
+                        //cliente encontrado
+                        System.out.println("-----CLIENTE ENCONTRADO-----");
+                        String apellidos = rs.getString("APELLIDOS");
+                        String cp = rs.getString("CP");
+
+                        System.out.println("DNI: " + dni);
+                        System.out.println("APELLIDOS: " + apellidos);
+                        System.out.println("CP: " + cp);
+                    }else {
+                        //si rs.next es false
+                        System.out.println("NO SE ENCONTRÓ NINGÚN CLIENTE CON DNI: " + dni);
+                    }
+                }
+            }
+        }
+    }
 }

@@ -70,7 +70,11 @@ public class DatabaseConnector {
      */
     private Connection getConnection() throws SQLException {
         if (this.connection == null) {
-            return DriverManager.getConnection(url, password, user);
+            this.connection = DriverManager.getConnection(
+                    properties.getProperty("db.url"),
+                    properties.getProperty("db.user"),
+                    properties.getProperty("db.password")
+            );
         }
         return this.connection;
     }

@@ -56,18 +56,20 @@ public class Main {
 //            );
 
 //            dao.actualizarCliente(connection, datosFinales);
-            print.imprimirRegistros2(connection, CATALOGO, NOMBRE_TABLA);
+            //print.imprimirRegistros2(connection, CATALOGO, NOMBRE_TABLA);
             // --- Datos de los 5 nuevos clientes a insertar ---
-//            List<Cliente> nuevosClientes = Arrays.asList(
-//                    new Cliente("12345678A", "Pérez Gómez", 28001),
-//                    new Cliente("23456789B", "López Martín", 41002),
-//                    new Cliente("34567890C", "Sánchez Ruiz", 46003),
-//                    new Cliente("45678901D", "Fernández Díaz", 98004),
-//                    new Cliente("56789012E", "Moreno Jiménez", 50005)
-//            );
+            List<Cliente> nuevosClientes = Arrays.asList(
+                    new Cliente("12345678A", "Pérez Gómez", 28001),
+                    new Cliente("23456789B", "López Martín", 41002),
+                    new Cliente("34567890C", "Sánchez Ruiz", 46003),
+                    new Cliente("45678901D", "Fernández Díaz", 98004),
+                    new Cliente("56789012E", "Moreno Jiménez", 50005)
+            );
 
            //dao.insertarClientes(connection, nuevosClientes);
-////            print.imprimirRegistros(connection, CATALOGO, NOMBRE_TABLA);
+           String [] dnis = {"12345678A", "23456789B", "34567890C", "45678901D", "56789012E"};
+           print.mostrarClientesPorDNI(connection, dnis);
+           //print.imprimirRegistros(connection, CATALOGO, NOMBRE_TABLA);
 //            List<Cliente> nuevosClientes2 = Arrays.asList(
 //                    new Cliente("15345678A", "Ana Gómez", 28001),
 //                    new Cliente("26456789B", "Jose Martín", 41002),
