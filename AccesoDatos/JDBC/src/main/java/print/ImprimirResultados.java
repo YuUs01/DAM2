@@ -95,6 +95,8 @@ public class ImprimirResultados {
         }
     }
 
+
+    //Actividad 2 Tema 4
     public void imprimirRegistros2(Connection conn, String catalogo, String nombreTabla) throws SQLException {
         // 1. Verificar primero si la tabla existe
         DatabaseMetaData metaData = conn.getMetaData();
