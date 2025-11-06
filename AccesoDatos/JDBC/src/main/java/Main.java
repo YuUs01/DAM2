@@ -49,14 +49,14 @@ public class Main {
 //            print.imprimirRegistros(connection, CATALOGO, NOMBRE_TABLA);
 //
 
-            List<String[]> datosFinales = Arrays.asList(
-                    new String[]{"78901234X", "Youssef", "44126"},
-                    new String[]{"89012345E", "Youssef", null},
-                    new String[]{"56789012B", "Youssef", "29730"}
-            );
+//            List<String[]> datosFinales = Arrays.asList(
+//                    new String[]{"78901234X", "Youssef", "44126"},
+//                    new String[]{"89012345E", "Youssef", null},
+//                    new String[]{"56789012B", "Youssef", "29730"}
+//            );
 
-            dao.actualizarCliente(connection, datosFinales);
-            print.imprimirRegistros(connection, CATALOGO, NOMBRE_TABLA);
+//            dao.actualizarCliente(connection, datosFinales);
+            print.imprimirRegistros2(connection, CATALOGO, NOMBRE_TABLA);
             // --- Datos de los 5 nuevos clientes a insertar ---
 //            List<Cliente> nuevosClientes = Arrays.asList(
 //                    new Cliente("12345678A", "Pérez Gómez", 28001),
@@ -76,7 +76,7 @@ public class Main {
 //                    new Cliente("59789012E", "Amalia Jiménez", 50005)
 //            );
 ////            dao.insertarClientesBatchConTransaccion(connection, nuevosClientes2);
-                print.imprimirRegistros(connection, CATALOGO, NOMBRE_TABLA);
+                //print.imprimirRegistros(connection, CATALOGO, NOMBRE_TABLA);
 //
 //            // Preparamos los datos para las nuevas facturas
 //            List<String> dnis = Arrays.asList(

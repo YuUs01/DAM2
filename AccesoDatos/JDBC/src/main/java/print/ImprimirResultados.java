@@ -1,6 +1,8 @@
 package print;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ImprimirResultados {
 
@@ -92,4 +94,60 @@ public class ImprimirResultados {
             }
         }
     }
+
+    public void imprimirRegistros2(Connection conn, String catalogo, String nombreTabla) throws SQLException {
+        // 1. Verificar primero si la tabla existe
+        DatabaseMetaData metaData = conn.getMetaData();
+        try (ResultSet tables = metaData.getTables(catalogo, null, nombreTabla, new String[]{"TABLE"})) {
+            if (!tables.next()) {
+                System.err.println("Error: La tabla '" + nombreTabla + "' no existe en la base de datos.");
+                return;
+            }
+        }
+
+        String sql = "SELECT * FROM " + nombreTabla;
+
+        System.out.println("📄 Registros de la tabla: " + nombreTabla);
+        System.out.println("----------------------------------------");
+
+        // 2. Ejecutar la consulta y obtener metadatos
+        try (PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int numColumnas = rsmd.getColumnCount();
+
+            // Imprimir cabeceras de columnas
+            for (int i = 1; i <= numColumnas; i++) {
+                System.out.print(rsmd.getColumnName(i) + "\t\t");
+            }
+            System.out.println("\n----------------------------------------");
+
+            // Imprimir registros
+            while (rs.next()) {
+                for (int i = 1; i <= numColumnas; i++) {
+                    // Asume que la tercera columna (CP) es numérica
+                    if (i % 3 == 0) {
+                        System.out.print(rs.getInt(i) + "\t\t");
+                    } else {
+                        System.out.print(rs.getString(i) + "\t\t");
+                    }
+                }
+                System.out.println(); // salto de línea al final de cada registro
+            }
+        }
+    }
+
+
+
+
+    /*
+    Ejecut
+     */
+//    public void mostrarNombresInversoConLista (Connection conn) throws SQLException{
+//
+//        List<String> nombres = new ArrayList<>();
+//        System.out.println("leyendo y guradando en la lista");
+//        try (Statement stmt = conn.prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY));
+//    }
 }
