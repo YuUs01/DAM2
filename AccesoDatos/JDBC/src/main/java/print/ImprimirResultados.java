@@ -171,7 +171,7 @@ public class ImprimirResultados {
                         System.out.println("DNI: " + dni);
                         System.out.println("APELLIDOS: " + apellidos);
                         System.out.println("CP: " + cp);
-                    }else {
+                    } else {
                         //si rs.next es false
                         System.out.println("NO SE ENCONTRÓ NINGÚN CLIENTE CON DNI: " + dni);
                     }

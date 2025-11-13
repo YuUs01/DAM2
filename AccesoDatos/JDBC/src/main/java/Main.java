@@ -1,6 +1,7 @@
 import dao.Dao;
 import dao.DatabaseConnector;
 import pojos.Cliente;
+import pojos.Company;
 import print.ImprimirResultados;
 
 import java.sql.Connection;
@@ -40,7 +41,7 @@ public class Main {
              * Ejecutamos una sentencia DDL para crear una tabla
              */
             //dao.crearTablaClientesSiNoExiste();
-             //Imprimimos los resultados
+            //Imprimimos los resultados
             //print.imprimirTablas(connection, CATALOGO);
 //
 //            // Insertamos registros en la tabla clientes
@@ -58,29 +59,38 @@ public class Main {
 //            dao.actualizarCliente(connection, datosFinales);
             //print.imprimirRegistros2(connection, CATALOGO, NOMBRE_TABLA);
             // --- Datos de los 5 nuevos clientes a insertar ---
-            List<Cliente> nuevosClientes = Arrays.asList(
-                    new Cliente("12345678A", "Pérez Gómez", 28001),
-                    new Cliente("23456789B", "López Martín", 41002),
-                    new Cliente("34567890C", "Sánchez Ruiz", 46003),
-                    new Cliente("45678901D", "Fernández Díaz", 98004),
-                    new Cliente("56789012E", "Moreno Jiménez", 50005)
-            );
-
-           //dao.insertarClientes(connection, nuevosClientes);
-           String [] dnis = {"12345678A", "23456789B", "34567890C", "45678901D", "56789012E"};
-           print.mostrarClientesPorDNI(connection, dnis);
-           //print.imprimirRegistros(connection, CATALOGO, NOMBRE_TABLA);
-//            List<Cliente> nuevosClientes2 = Arrays.asList(
-//                    new Cliente("15345678A", "Ana Gómez", 28001),
-//                    new Cliente("26456789B", "Jose Martín", 41002),
-//                    new Cliente("37567890C", "Ramon Ruiz", 46003),
-//                    new Cliente("48678901D", "Lucia Díaz", 98004),
-//                    new Cliente("59789012E", "Amalia Jiménez", 50005)
+//            List<Cliente> nuevosClientes = Arrays.asList(
+//                    new Cliente("12345678A", "Pérez Gómez", 28001),
+//                    new Cliente("23456789B", "López Martín", 41002),
+//                    new Cliente("34567890C", "Sánchez Ruiz", 46003),
+//                    new Cliente("45678901D", "Fernández Díaz", 98004),
+//                    new Cliente("56789012E", "Moreno Jiménez", 50005)
 //            );
-////            dao.insertarClientesBatchConTransaccion(connection, nuevosClientes2);
-                //print.imprimirRegistros(connection, CATALOGO, NOMBRE_TABLA);
-//
-//            // Preparamos los datos para las nuevas facturas
+
+            //dao.insertarClientes(connection, nuevosClientes);
+//           String [] dnis = {"12345678A", "23456789B", "34567890C", "45678901D", "56789012E"};
+//           print.mostrarClientesPorDNI(connection, dnis);
+            //print.imprimirRegistros(connection, CATALOGO, NOMBRE_TABLA);
+            List<Cliente> nuevosClientes2 = Arrays.asList(
+                    new Cliente("15345678A", "Ana Gómez", 28001),
+                    new Cliente("26456789B", "Jose Martín", 41002),
+                    new Cliente("37567890C", "Ramon Ruiz", 46003),
+                    new Cliente("48678901D", "Lucia Díaz", 98004),
+                    new Cliente("59789012E", "Amalia Jiménez", 50005)
+            );
+            //dao.insertarClientesBatchConTransaccion(connection, nuevosClientes2);
+            //print.imprimirRegistros(connection, CATALOGO, NOMBRE_TABLA);
+
+            List<Company> nuevasCompanies = Arrays.asList(
+                    new Company("67345438B", "Indra", "INFORMÁTICA"),
+                    new Company("87666789N", "Accenture", "IT"),
+                    new Company("28736487C", "ISBAN", "BANCA"),
+                    new Company("87562938D", "NTT", "IT"),
+                    new Company("23498757E", "IBM", "HARDWARE - SOFTEARE")
+            );
+            dao.crearTablaCompaniesSiNoExiste();
+            dao.insertarCompaniesBatchConTransaccion(connection, nuevasCompanies);
+            // Preparamos los datos para las nuevas facturas
 //            List<String> dnis = Arrays.asList(
 //                    "78901234X",
 //                    "09876543K",

@@ -1,9 +1,6 @@
 package dao;
 
-import pojos.Cliente;
-import pojos.ClienteNuevo;
-import pojos.LineaFactura;
-import pojos.ResultadoListado;
+import pojos.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -54,6 +51,45 @@ public class Dao {
                         + "APELLIDOS VARCHAR(32) NOT NULL, "
                         + "CP CHAR(5), "
                         + "PRIMARY KEY(DNI))";
+
+                // 4. Ejecutar la sentencia de creación.
+                // Usamos executeUpdate() para sentencias DDL (CREATE, ALTER, DROP) y DML (INSERT, UPDATE, DELETE).
+                stmt.executeUpdate(sql);
+                System.out.println("Tabla '" + nombreTabla + "' creada con éxito.");
+            }
+        }
+    }
+
+    public void crearTablaCompaniesSiNoExiste() throws SQLException {
+        // Define el nombre de la tabla que queremos comprobar/crear.
+        final String nombreTabla = "COMPANIES";
+
+        // 1. Obtener los metadatos de la base de datos a través de la conexión.
+        // DatabaseMetaData nos proporciona métodos para explorar la estructura de la BBDD.
+        DatabaseMetaData dbm = connection.getMetaData();
+
+        // 2. Comprobar si la tabla "CLIENTES" ya existe.
+        // getTables() devuelve un ResultSet con la lista de tablas que coinciden con el patrón.
+        // Pasamos null a catálogo y esquema para buscar en cualquier lugar, y el nombre exacto de la tabla.
+        ResultSet tables = dbm.getTables(null, null, nombreTabla, null);
+
+        // 3. Evaluar el resultado.
+        if (tables.next()) {
+            // Si tables.next() devuelve 'true', significa que el ResultSet tiene al menos una fila,
+            // lo que confirma que la tabla ya existe.
+            System.out.println("La tabla '" + nombreTabla + "' ya existe. No se requiere ninguna acción.");
+        } else {
+            // Si el ResultSet está vacío, la tabla no existe y procedemos a crearla.
+            System.out.println("La tabla '" + nombreTabla + "' no existe. Creándola...");
+
+            // Usamos un bloque 'try-with-resources' para asegurar que el Statement se cierre automáticamente.
+            try (Statement stmt = connection.createStatement()) {
+                // La sentencia DDL a ejecutar.
+                String sql = "CREATE TABLE COMPANIES ("
+                        + "CIF VARCHAR(9) NOT NULL, "
+                        + "NOMBRE VARCHAR(32) NOT NULL, "
+                        + "SECTOR VARCHAR(32), "
+                        + "PRIMARY KEY(CIF))";
 
                 // 4. Ejecutar la sentencia de creación.
                 // Usamos executeUpdate() para sentencias DDL (CREATE, ALTER, DROP) y DML (INSERT, UPDATE, DELETE).
@@ -186,6 +222,8 @@ public class Dao {
      * @param conn La conexión activa a la base de datos.
      * @param clientes La lista de clientes a insertar.
      */
+
+
     public void insertarClientesBatchConTransaccion(Connection conn, List<Cliente> clientes) {
         String sql = "INSERT INTO CLIENTES (DNI, APELLIDOS, CP) VALUES (?, ?, ?)";
 
@@ -527,6 +565,59 @@ public class Dao {
             return stmt.executeBatch();
         }
     }
+
+    //Actividad 6 Tema 4 método de inserción de compañías.
+    public void insertarCompaniesBatchConTransaccion(Connection conn, List<Company> companies) {
+        String sql = "INSERT INTO COMPANIES (CIF, NOMBRE, SECTOR) VALUES (?, ?, ?)";
+
+        try {
+            // ⚙️ 1. INICIAR LA TRANSACCIÓN
+            // Desactivamos el modo auto-commit para controlar la transacción manualmente.
+            conn.setAutoCommit(false);
+
+            // Usamos try-with-resources para el PreparedStatement
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                for (Company company : companies) {
+                    pstmt.setString(1, company.getCif());
+                    pstmt.setString(2, company.getNombre());
+                    pstmt.setString(3, company.getSector());
+                    pstmt.addBatch();
+                }
+
+                // 🚀 2. EJECUTAR EL LOTE
+                System.out.println("Ejecutando el lote de inserciones...");
+                pstmt.executeBatch();
+
+                // ✅ 3. CONFIRMAR LA TRANSACCIÓN
+                // Si executeBatch() no lanzó una excepción, todo fue bien. Hacemos permanentes los cambios.
+                conn.commit();
+                System.out.println("¡Éxito! La transacción ha sido confirmada (commit).");
+            }
+        } catch (SQLException e) {
+            // ❌ 4. MANEJAR EL ERROR Y HACER ROLLBACK
+            System.err.println("Error durante la inserción por lotes. Iniciando rollback...");
+            try {
+                if (conn != null) {
+                    // Revertimos todos los cambios hechos desde el setAutoCommit(false)
+                    conn.rollback();
+                    System.out.println("El rollback se ha completado con éxito.");
+                }
+            } catch (SQLException ex) {
+                System.err.println("Error crítico al intentar hacer rollback.");
+                ex.printStackTrace();
+            }
+            // También es útil imprimir el error original que causó el fallo
+            e.printStackTrace();
+        } finally {
+            // 🔄 5. RESTAURAR EL MODO ORIGINAL
+            // Es una buena práctica devolver la conexión a su estado original.
+            try {
+                if (conn != null) {
+                    conn.setAutoCommit(true);
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
 }
-
-
