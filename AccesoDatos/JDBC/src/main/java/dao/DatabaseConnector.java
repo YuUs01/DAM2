@@ -17,7 +17,7 @@ public class DatabaseConnector {
     public Connection connection;
 
     public DatabaseConnector() throws SQLException {
-            connection = getConnection();
+        connection = getConnection();
     }
 
     // Define un bloque de código estático. Este bloque se ejecutará automáticamente

@@ -9,7 +9,7 @@ public class PracticaUD1 {
             ProcessBuilder pb = new ProcessBuilder("Notepad");
             ProcessBuilder pb1 = new ProcessBuilder("\"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe\"");
 
-            for (int i =0; i<4; i++){
+            for (int i =0; i<5; i++){
                 Process proceso = pb.start();
                 Process proceso1 = pb1.start();
                 Thread.sleep(1000);

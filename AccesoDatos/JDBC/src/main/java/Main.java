@@ -2,12 +2,15 @@ import dao.Dao;
 import dao.DatabaseConnector;
 import pojos.Cliente;
 import pojos.Company;
+import pojos.LineaFactura;
+import pojos.ResultadoListado;
 import print.ImprimirResultados;
 
 import java.sql.Connection;
 import java.sql.Statement;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 
 public class Main {
@@ -88,38 +91,40 @@ public class Main {
                     new Company("87562938D", "NTT", "IT"),
                     new Company("23498757E", "IBM", "HARDWARE - SOFTEARE")
             );
-            dao.crearTablaCompaniesSiNoExiste();
-            dao.insertarCompaniesBatchConTransaccion(connection, nuevasCompanies);
+//            dao.crearTablaCompaniesSiNoExiste();
+//            dao.insertarCompaniesBatchConTransaccion(connection, nuevasCompanies);
+
+
             // Preparamos los datos para las nuevas facturas
-//            List<String> dnis = Arrays.asList(
-//                    "78901234X",
-//                    "09876543K",
-//                    "15345678A",
-//                    "INVALIDO", // DNI que podría causar un error para probar el rollback
-//                    "59789012E"
-//            );
-//
-//            List<LineaFactura> lineas = Arrays.asList(
-//                    new LineaFactura("TORNILLOS", 10),
-//                    new LineaFactura("TUERCAS", 50),
-//                    new LineaFactura("ARANDELAS", 100),
-//                    new LineaFactura("TACOS", 150)
-//            );
-//
+            List<String> dnis = Arrays.asList(
+                    "78901234X",
+                    "09876543K",
+                    "15345678A",
+                    "INVALIDO", // DNI que podría causar un error para probar el rollback
+                    "59789012E"
+            );
+
+            List<LineaFactura> lineas = Arrays.asList(
+                    new LineaFactura("TORNILLOS", 10),
+                    new LineaFactura("TUERCAS", 50),
+                    new LineaFactura("ARANDELAS", 100),
+                    new LineaFactura("TACOS", 150)
+            );
+
 //            // Llamamos a nuestro método para procesar el lote de facturas
-////            Map<String, Integer> resultados = dao.crearFacturas(connection, dnis, lineas);
-////
-////            System.out.println("\n--- RESUMEN DEL PROCESO ---");
-////            System.out.println("Facturas creadas exitosamente: " + resultados.size() + " de " + dnis.size());
-////            resultados.forEach((dni, numFactura) ->
-////                    System.out.println("  - DNI: " + dni + " -> Factura Nº: " + numFactura)
-////            );
-////            print.imprimirRegistros(connection, CATALOGO, T_FACTURAS);
-////            print.imprimirRegistros(connection, CATALOGO, T_LINEAS_FACTURA);
+//            Map<String, Integer> resultados = dao.crearFacturas(connection, dnis, lineas);
+//
+//            System.out.println("\n--- RESUMEN DEL PROCESO ---");
+//            System.out.println("Facturas creadas exitosamente: " + resultados.size() + " de " + dnis.size());
+//            resultados.forEach((dni, numFactura) ->
+//                    System.out.println("  - DNI: " + dni + " -> Factura Nº: " + numFactura)
+//            );
+//            print.imprimirRegistros(connection, CATALOGO, T_FACTURAS);
+//            print.imprimirRegistros(connection, CATALOGO, T_LINEAS_FACTURA);
 //
 //            // La lógica de negocio ahora es una simple llamada a un método.
-////            String dniBusqueda = "78901234X";
-////            ResultadoListado resultado = dao.llamarListadoClientes(connection, dniBusqueda);
+            String dniBusqueda = "78901234X";
+            ResultadoListado resultado = dao.llamarListadoClientes(connection, dniBusqueda);
 ////
 ////            // La responsabilidad de mostrar los datos se queda en el main.
 ////            System.out.println("=> Valor del parámetro INOUT devuelto: " + resultado.getContadorInOut());
