@@ -417,9 +417,7 @@ public class Dao {
     public void obtenerYMostrarApellidosAlternativo(String dniCliente, Connection connection) {
         // Las funciones se pueden invocar directamente en una consulta SELECT.
         String sql = "SELECT obtener_apellidos_mejorado(?) AS apellidos";
-
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-
             // **Paso 1: Establecer el parámetro de entrada**
             pstmt.setString(1, dniCliente);
 
@@ -428,18 +426,16 @@ public class Dao {
                 // **Paso 3: Procesar el resultado**
                 if (rs.next()) {
                     String apellidos = rs.getString("apellidos"); // O rs.getString(1)
-                    System.out.println("✅ Apellidos encontrados (método alternativo): " + apellidos);
+                    System.out.println("Apellidos encontrados (método alternativo): " + apellidos);
                 } else {
-                    System.out.println("⚠️ La consulta no devolvió resultados.");
+                    System.out.println("La consulta no devolvió resultados.");
                 }
             }
-
         } catch (SQLException e) {
-            System.err.println("❌ Error en el método alternativo.");
+            System.err.println("Error en el método alternativo.");
             e.printStackTrace();
         }
     }
-
     /**
      * Realiza un conjunto de modificaciones en la tabla CLIENTES usando un ResultSet actualizable.
      * Modifica el CP del último cliente, borra el penúltimo e inserta uno nuevo.
