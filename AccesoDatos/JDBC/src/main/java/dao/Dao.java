@@ -567,7 +567,7 @@ public class Dao {
         String sql = "INSERT INTO COMPANIES (CIF, NOMBRE, SECTOR) VALUES (?, ?, ?)";
 
         try {
-            // ⚙️ 1. INICIAR LA TRANSACCIÓN
+            // 1. INICIAR LA TRANSACCIÓN
             // Desactivamos el modo auto-commit para controlar la transacción manualmente.
             conn.setAutoCommit(false);
 
@@ -580,17 +580,17 @@ public class Dao {
                     pstmt.addBatch();
                 }
 
-                // 🚀 2. EJECUTAR EL LOTE
+                // 2. EJECUTAR EL LOTE
                 System.out.println("Ejecutando el lote de inserciones...");
                 pstmt.executeBatch();
 
-                // ✅ 3. CONFIRMAR LA TRANSACCIÓN
+                // 3. CONFIRMAR LA TRANSACCIÓN
                 // Si executeBatch() no lanzó una excepción, todo fue bien. Hacemos permanentes los cambios.
                 conn.commit();
                 System.out.println("¡Éxito! La transacción ha sido confirmada (commit).");
             }
         } catch (SQLException e) {
-            // ❌ 4. MANEJAR EL ERROR Y HACER ROLLBACK
+            // 4. MANEJAR EL ERROR Y HACER ROLLBACK
             System.err.println("Error durante la inserción por lotes. Iniciando rollback...");
             try {
                 if (conn != null) {
@@ -605,7 +605,7 @@ public class Dao {
             // También es útil imprimir el error original que causó el fallo
             e.printStackTrace();
         } finally {
-            // 🔄 5. RESTAURAR EL MODO ORIGINAL
+            // 5. RESTAURAR EL MODO ORIGINAL
             // Es una buena práctica devolver la conexión a su estado original.
             try {
                 if (conn != null) {
