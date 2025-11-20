@@ -101,7 +101,7 @@ public class Dao {
 
     /**
      * Ejecuta una sentencia SQL de inserción utilizando un Statement.
-     * ⚠️ ADVERTENCIA: Este método es vulnerable a inyección SQL.
+     *ADVERTENCIA: Este método es vulnerable a inyección SQL.
      * Es útil para fines educativos o para ejecutar sentencias completamente controladas,
      * pero no debe usarse con datos provenientes del usuario.
      *
@@ -132,8 +132,8 @@ public class Dao {
      * que hace que el método sea más reutilizable y fácil de probar.
      * La responsabilidad de abrir y cerrar la conexión recae en quien llama al método.
      * PreparedStatement: Al usar ? como marcadores, evitamos la concatenación de strings.
-     * Esto nos protege contra ataques de inyección SQL 🛡️ y permite que el motor de
-     * la base de datos precompile la consulta, mejorando el rendimiento 🚀 si se ejecuta varias veces.
+     * Esto nos protege contra ataques de inyección SQL y permite que el motor de
+     * la base de datos precompile la consulta, mejorando el rendimiento si se ejecuta varias veces.
      * try-with-resources: La línea try (PreparedStatement pstmt = ...)
      * asegura que el objeto pstmt se cierre automáticamente al finalizar el bloque,
      * previniendo fugas de recursos en la base de datos, incluso si ocurre un error.
@@ -142,14 +142,14 @@ public class Dao {
      * @param clientes La lista de clientes a insertar.
      */
     public void insertarClientes(Connection conn, List<Cliente> clientes) {
-        // 1. Define la sentencia SQL con placeholders (?) para seguridad y rendimiento.
+        //1. Define la sentencia SQL con placeholders (?) para seguridad y rendimiento.
         String sql = "INSERT INTO CLIENTES (DNI, APELLIDOS, CP) VALUES (?, ?, ?)";
 
-        // 2. Usa try-with-resources para asegurar que el PreparedStatement se cierre.
+        //2. Usa try-with-resources para asegurar que el PreparedStatement se cierre.
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             for (Cliente cliente : clientes) {
-                // 3. Asigna los valores a los placeholders.
+                //3. Asigna los valores a los placeholders.
                 pstmt.setString(1, cliente.getDni());      // Primer '?'
                 pstmt.setString(2, cliente.getApellidos()); // Segundo '?'
                 pstmt.setInt(3, cliente.getCodigoPostal()); // Tercer '?'
@@ -191,11 +191,11 @@ public class Dao {
                 pstmt.setString(2, cliente.getApellidos());
                 pstmt.setInt(3, cliente.getCodigoPostal());
 
-                // En lugar de ejecutar, añade la consulta al lote.
+                //En lugar de ejecutar, añade la consulta al lote.
                 pstmt.addBatch();
             }
 
-            // Ejecuta todas las operaciones del lote en una sola llamada a la BD.
+            //Ejecuta todas las operaciones del lote en una sola llamada a la BD.
             int[] resultados = pstmt.executeBatch();
 
             System.out.println("Proceso por lotes finalizado. Total de clientes procesados: " + resultados.length);
@@ -228,7 +228,7 @@ public class Dao {
         String sql = "INSERT INTO CLIENTES (DNI, APELLIDOS, CP) VALUES (?, ?, ?)";
 
         try {
-            // ⚙️ 1. INICIAR LA TRANSACCIÓN
+            //1. INICIAR LA TRANSACCIÓN
             // Desactivamos el modo auto-commit para controlar la transacción manualmente.
             conn.setAutoCommit(false);
 
@@ -241,17 +241,17 @@ public class Dao {
                     pstmt.addBatch();
                 }
 
-                // 🚀 2. EJECUTAR EL LOTE
+                //2.EJECUTAR EL LOTE
                 System.out.println("Ejecutando el lote de inserciones...");
                 pstmt.executeBatch();
 
-                // ✅ 3. CONFIRMAR LA TRANSACCIÓN
+                //3. CONFIRMAR LA TRANSACCIÓN
                 // Si executeBatch() no lanzó una excepción, todo fue bien. Hacemos permanentes los cambios.
                 conn.commit();
                 System.out.println("¡Éxito! La transacción ha sido confirmada (commit).");
             }
         } catch (SQLException e) {
-            // ❌ 4. MANEJAR EL ERROR Y HACER ROLLBACK
+            //4. MANEJAR EL ERROR Y HACER ROLLBACK
             System.err.println("Error durante la inserción por lotes. Iniciando rollback...");
             try {
                 if (conn != null) {
@@ -266,8 +266,8 @@ public class Dao {
             // También es útil imprimir el error original que causó el fallo
             e.printStackTrace();
         } finally {
-            // 🔄 5. RESTAURAR EL MODO ORIGINAL
-            // Es una buena práctica devolver la conexión a su estado original.
+            //5. RESTAURAR EL MODO ORIGINAL
+            //Es una buena práctica devolver la conexión a su estado original.
             try {
                 if (conn != null) {
                     conn.setAutoCommit(true);
@@ -415,13 +415,13 @@ public class Dao {
     }
 
     public void obtenerYMostrarApellidosAlternativo(String dniCliente, Connection connection) {
-        // Las funciones se pueden invocar directamente en una consulta SELECT.
+        //Las funciones se pueden invocar directamente en una consulta SELECT.
         String sql = "SELECT obtener_apellidos_mejorado(?) AS apellidos";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            // **Paso 1: Establecer el parámetro de entrada**
+            //Paso 1: Establecer el parámetro de entrada
             pstmt.setString(1, dniCliente);
 
-            // **Paso 2: Ejecutar la consulta**
+            //Paso 2: Ejecutar la consulta
             try (ResultSet rs = pstmt.executeQuery()) {
                 // **Paso 3: Procesar el resultado**
                 if (rs.next()) {
@@ -615,5 +615,36 @@ public class Dao {
                 ex.printStackTrace();
             }
         }
+    }
+
+    public void queryDatabase(Connection connection, String nombreTabla) throws SQLException{
+        try(connection) {
+            if (connection == null) {
+                throw new Exception("Error al obtener la conexión a la base de datos.");
+            }
+
+            System.out.println("Hemos obtenido la conexión a la base de datos");
+            Statement stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet rs = stmt.executeQuery("SELECT * FROM " + nombreTabla);
+
+            System.out.println("Conexión establecida. Navegando por la tabla '" + nombreTabla + "'.");
+            System.out.println("Comandos: 'k' (siguiente), 'd', <número> (ir a fila), '.' (salir)");
+            System.out.println("---------------------");
+
+            if (rs.first()) {
+                NavegadorTabla nv = new NavegadorTabla();
+                nv.mostrarFilaActual(rs);
+                nv.navegacionInteractiva(rs);
+            } else {
+                System.out.println("La tabla '" + nombreTabla + "' está vacía");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error de SQL: " + e.getMessage());
+            e.printStackTrace();
+        }catch (Exception e){
+            System.err.println("Ha ocurrido un error inesperado: " + e.getMessage());
+            e.printStackTrace();
+        }
+        System.out.println("Programa finalizado. Recursos liberados");
     }
 }
