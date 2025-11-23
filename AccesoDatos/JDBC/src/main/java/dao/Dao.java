@@ -60,44 +60,8 @@ public class Dao {
         }
     }
 
-    public void crearTablaCompaniesSiNoExiste() throws SQLException {
-        // Define el nombre de la tabla que queremos comprobar/crear.
-        final String nombreTabla = "COMPANIES";
 
-        // 1. Obtener los metadatos de la base de datos a través de la conexión.
-        // DatabaseMetaData nos proporciona métodos para explorar la estructura de la BBDD.
-        DatabaseMetaData dbm = connection.getMetaData();
 
-        // 2. Comprobar si la tabla "CLIENTES" ya existe.
-        // getTables() devuelve un ResultSet con la lista de tablas que coinciden con el patrón.
-        // Pasamos null a catálogo y esquema para buscar en cualquier lugar, y el nombre exacto de la tabla.
-        ResultSet tables = dbm.getTables(null, null, nombreTabla, null);
-
-        // 3. Evaluar el resultado.
-        if (tables.next()) {
-            // Si tables.next() devuelve 'true', significa que el ResultSet tiene al menos una fila,
-            // lo que confirma que la tabla ya existe.
-            System.out.println("La tabla '" + nombreTabla + "' ya existe. No se requiere ninguna acción.");
-        } else {
-            // Si el ResultSet está vacío, la tabla no existe y procedemos a crearla.
-            System.out.println("La tabla '" + nombreTabla + "' no existe. Creándola...");
-
-            // Usamos un bloque 'try-with-resources' para asegurar que el Statement se cierre automáticamente.
-            try (Statement stmt = connection.createStatement()) {
-                // La sentencia DDL a ejecutar.
-                String sql = "CREATE TABLE COMPANIES ("
-                        + "CIF VARCHAR(9) NOT NULL, "
-                        + "NOMBRE VARCHAR(32) NOT NULL, "
-                        + "SECTOR VARCHAR(32), "
-                        + "PRIMARY KEY(CIF))";
-
-                // 4. Ejecutar la sentencia de creación.
-                // Usamos executeUpdate() para sentencias DDL (CREATE, ALTER, DROP) y DML (INSERT, UPDATE, DELETE).
-                stmt.executeUpdate(sql);
-                System.out.println("Tabla '" + nombreTabla + "' creada con éxito.");
-            }
-        }
-    }
 
     /**
      * Ejecuta una sentencia SQL de inserción utilizando un Statement.
@@ -584,7 +548,47 @@ public class Dao {
     }
 
 
-    //Actividad 6 Tema 4 método de inserción de compañías.
+    //Actividad 6 Tema 4 método de creación de tabla para compañías.
+    public void crearTablaCompaniesSiNoExiste() throws SQLException {
+        // Define el nombre de la tabla que queremos comprobar/crear.
+        final String nombreTabla = "COMPANIES";
+
+        // 1. Obtener los metadatos de la base de datos a través de la conexión.
+        // DatabaseMetaData nos proporciona métodos para explorar la estructura de la BBDD.
+        DatabaseMetaData dbm = connection.getMetaData();
+
+        // 2. Comprobar si la tabla "CLIENTES" ya existe.
+        // getTables() devuelve un ResultSet con la lista de tablas que coinciden con el patrón.
+        // Pasamos null a catálogo y esquema para buscar en cualquier lugar, y el nombre exacto de la tabla.
+        ResultSet tables = dbm.getTables(null, null, nombreTabla, null);
+
+        // 3. Evaluar el resultado.
+        if (tables.next()) {
+            // Si tables.next() devuelve 'true', significa que el ResultSet tiene al menos una fila,
+            // lo que confirma que la tabla ya existe.
+            System.out.println("La tabla '" + nombreTabla + "' ya existe. No se requiere ninguna acción.");
+        } else {
+            // Si el ResultSet está vacío, la tabla no existe y procedemos a crearla.
+            System.out.println("La tabla '" + nombreTabla + "' no existe. Creándola...");
+
+            // Usamos un bloque 'try-with-resources' para asegurar que el Statement se cierre automáticamente.
+            try (Statement stmt = connection.createStatement()) {
+                // La sentencia DDL a ejecutar.
+                String sql = "CREATE TABLE COMPANIES ("
+                        + "CIF VARCHAR(9) NOT NULL, "
+                        + "NOMBRE VARCHAR(32) NOT NULL, "
+                        + "SECTOR VARCHAR(32), "
+                        + "PRIMARY KEY(CIF))";
+
+                // 4. Ejecutar la sentencia de creación.
+                // Usamos executeUpdate() para sentencias DDL (CREATE, ALTER, DROP) y DML (INSERT, UPDATE, DELETE).
+                stmt.executeUpdate(sql);
+                System.out.println("Tabla '" + nombreTabla + "' creada con éxito.");
+            }
+        }
+    }
+
+    //Actividad 6 Tema 4 metodo para insertar clientes en la tabla de compañías.
     public void insertarCompaniesBatchConTransaccion(Connection conn, List<Company> companies) {
         String sql = "INSERT INTO COMPANIES (CIF, NOMBRE, SECTOR) VALUES (?, ?, ?)";
 
