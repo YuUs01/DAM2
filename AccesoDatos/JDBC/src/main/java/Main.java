@@ -69,6 +69,12 @@ public class Main {
             //print.mostrarNombresInversoConLista(connection);
             //Fin Actividad 3 Tema 4
 
+            //Actividad 4 Tema 4
+            int totalFilas = dao.contarFilasSinRecorrer(connection, "SELECT * FROM CLIENTES");
+            System.out.println("Número de filas: " + totalFilas);
+            //Fin Actividad 4 Tema 4
+
+
             // --- Datos de los 5 nuevos clientes a insertar ---
 //            List<Cliente> nuevosClientes = Arrays.asList(
 //                    new Cliente("12345678A", "Pérez Gómez", 28001),
@@ -78,10 +84,7 @@ public class Main {
 //                    new Cliente("56789012E", "Moreno Jiménez", 50005)
 //            );
 
-            //Actividad 4 Tema 4
-            int totalFilas = dao.contarFilasSinRecorrer(connection, "SELECT * FROM CLIENTES");
-            System.out.println("Número de filas: " + totalFilas);
-            //Fin Actividad 4 Tema 4
+
 
             //dao.insertarClientes(connection, nuevosClientes);
 //           String [] dnis = {"12345678A", "23456789B", "34567890C", "45678901D", "56789012E"};
