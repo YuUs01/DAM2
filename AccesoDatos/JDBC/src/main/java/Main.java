@@ -57,10 +57,13 @@ public class Main {
                     new String[]{"89012345E", "ROJAS", null},
                     new String[]{"56789012B", "SAMPER", "29730"}
             );
-            dao.actualizarCliente(connection, datosFinales);
-            print.imprimirRegistros2(connection, CATALOGO, NOMBRE_TABLA);
+            //dao.actualizarCliente(connection, datosFinales);
+            //print.imprimirRegistros2(connection, CATALOGO, NOMBRE_TABLA);
             //Fin Actividad 1 Tema 4
 
+            //Actividad 2 Tema 4
+            print.imprimirRegistros2(connection, CATALOGO, NOMBRE_TABLA);
+            //Fin Actividad 2 Tema 4
 
             // --- Datos de los 5 nuevos clientes a insertar ---
 //            List<Cliente> nuevosClientes = Arrays.asList(
