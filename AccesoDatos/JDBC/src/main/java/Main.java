@@ -67,6 +67,7 @@ public class Main {
 
             //Actividad 3 Tema 4
             print.mostrarNombresInversoConLista(connection);
+            //Fin Actividad 3 Tema 4
 
             // --- Datos de los 5 nuevos clientes a insertar ---
 //            List<Cliente> nuevosClientes = Arrays.asList(
