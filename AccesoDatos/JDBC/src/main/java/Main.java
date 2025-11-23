@@ -41,9 +41,9 @@ public class Main {
             /**
              * Ejecutamos una sentencia DDL para crear una tabla
              */
-            dao.crearTablaClientesSiNoExiste();
+            //dao.crearTablaClientesSiNoExiste();
             //Imprimimos los resultados
-            print.imprimirTablas(connection, CATALOGO);
+            //print.imprimirTablas(connection, CATALOGO);
 
             // Insertamos registros en la tabla clientes
             //dao.insertarDatosConStatement(connection, INSERT_CLIENTES);
