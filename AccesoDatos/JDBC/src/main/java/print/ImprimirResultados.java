@@ -142,12 +142,28 @@ public class ImprimirResultados {
 
 
     //Actividad 3 Tema 4
-//    public void mostrarNombresInversoConLista (Connection conn) throws SQLException{
-//
-//        List<String> nombres = new ArrayList<>();
-//        System.out.println("leyendo y guradando en la lista");
-//        try (Statement stmt = conn.prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY));
-//    }
+    public void mostrarNombresInversoConLista(Connection conn) throws SQLException {
+
+        String sql = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM employees";
+
+        List<String> nombres = new ArrayList<>();
+
+        // 1. Ejecutar consulta y guardar los resultados en la lista
+        try (PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                nombres.add(rs.getString("name"));
+            }
+        }
+
+        // 2. Mostrar la lista en orden inverso
+        System.out.println("Nombres en orden inverso:");
+        for (int i = nombres.size() - 1; i >= 0; i--) {
+            System.out.println(nombres.get(i));
+        }
+    }
+
 
     //Actividad 5 Tema 4
     public void mostrarClientesPorDNI(Connection conn, String[] dnis) throws SQLException {
