@@ -328,15 +328,7 @@ public class Dao {
         return facturasCreadas;
     }
 
-    /**
-     * Llama a un procedimiento almacenado para obtener un listado de clientes.
-     *
-     * @param conn La conexión activa a la base de datos.
-     * @param dni El DNI del cliente para filtrar (parámetro de entrada).
-     * @return Un objeto ResultadoListado que contiene la lista de clientes y el valor
-     * del parámetro INOUT.
-     * @throws SQLException Si ocurre un error durante la comunicación con la BBDD.
-     */
+    //Actividad 7 Tema 4 llamada a un procedimiento almacenado
     public static ResultadoListado llamarListadoClientes(Connection conn, String dni) throws SQLException {
         // La sintaxis "{call ...}" es el estándar de JDBC para llamar a procedimientos.
         String sql = "{call listado_parcial_clientes(?,?)}"; // Asumimos 2 parámetros
