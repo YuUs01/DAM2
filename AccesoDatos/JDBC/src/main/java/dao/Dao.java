@@ -563,6 +563,27 @@ public class Dao {
         }
     }
 
+    //Actividad 4 Tema 4 método para contar las filas de una consulta sin recorrer sus contenidos
+    public int contarFilasSinRecorrer(Connection conn, String sql) throws SQLException {
+
+        // ResultSet desplazable para poder usar last()
+        try (PreparedStatement pstmt = conn.prepareStatement(
+                sql,
+                ResultSet.TYPE_SCROLL_INSENSITIVE,
+                ResultSet.CONCUR_READ_ONLY);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            // Si no hay filas, devolver 0
+            if (!rs.last()) {
+                return 0;
+            }
+
+            // El número de fila en la última posición es el total de filas
+            return rs.getRow();
+        }
+    }
+
+
     //Actividad 6 Tema 4 método de inserción de compañías.
     public void insertarCompaniesBatchConTransaccion(Connection conn, List<Company> companies) {
         String sql = "INSERT INTO COMPANIES (CIF, NOMBRE, SECTOR) VALUES (?, ?, ?)";
