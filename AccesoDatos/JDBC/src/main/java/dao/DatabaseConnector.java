@@ -9,7 +9,7 @@ import java.util.Properties;
 
 public class DatabaseConnector {
 
-    private static final String PROPERTIES_FILE = "databaseExample.properties";
+    private static final String PROPERTIES_FILE = "database.properties";
     private static Properties properties = new Properties();
     private String user;
     private String password;
