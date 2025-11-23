@@ -489,7 +489,7 @@ public class Dao {
         }
     }
 
-    //Actividad 1 tema 4
+    //Actividad 1 tema 4 actualizacion de los contenidos de una tabla mediante delete e insert.
     public static void actualizarCliente(Connection conn, List<String[]> datosFinales) throws SQLException {
         String sqlDelete = "DELETE FROM CLIENTES";
         String sqlInsert = "INSERT INTO CLIENTES (DNI, APELLIDOS, CP) VALUES (?, ?, ?)";
@@ -522,6 +522,7 @@ public class Dao {
             e.printStackTrace();
         }
     }
+    //Fin Actividad 1 Tema 4
 
     /**
      * Inserta una lista de clientes en la base de datos utilizando un lote (batch).

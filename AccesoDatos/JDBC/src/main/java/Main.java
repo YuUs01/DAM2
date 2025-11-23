@@ -41,24 +41,27 @@ public class Main {
             /**
              * Ejecutamos una sentencia DDL para crear una tabla
              */
-            //dao.crearTablaClientesSiNoExiste();
+            dao.crearTablaClientesSiNoExiste();
             //Imprimimos los resultados
-            //print.imprimirTablas(connection, CATALOGO);
-//
-//            // Insertamos registros en la tabla clientes
-//            dao.insertarDatosConStatement(connection, INSERT_CLIENTES);
-//            // Sacamos por consola los registros insertados
-//            print.imprimirRegistros(connection, CATALOGO, NOMBRE_TABLA);
-//
+            print.imprimirTablas(connection, CATALOGO);
 
-//            List<String[]> datosFinales = Arrays.asList(
-//                    new String[]{"78901234X", "Youssef", "44126"},
-//                    new String[]{"89012345E", "Youssef", null},
-//                    new String[]{"56789012B", "Youssef", "29730"}
-//            );
+            // Insertamos registros en la tabla clientes
+            //dao.insertarDatosConStatement(connection, INSERT_CLIENTES);
+            // Sacamos por consola los registros insertados
+            //print.imprimirRegistros(connection, CATALOGO, NOMBRE_TABLA);
 
-//            dao.actualizarCliente(connection, datosFinales);
-            //print.imprimirRegistros2(connection, CATALOGO, NOMBRE_TABLA);
+
+            //Actividad 1 Tema 4
+            List<String[]> datosFinales = Arrays.asList(
+                    new String[]{"78901234X", "NADALES", "44126"},
+                    new String[]{"89012345E", "ROJAS", null},
+                    new String[]{"56789012B", "SAMPER", "29730"}
+            );
+            dao.actualizarCliente(connection, datosFinales);
+            print.imprimirRegistros2(connection, CATALOGO, NOMBRE_TABLA);
+            //Fin Actividad 1 Tema 4
+
+
             // --- Datos de los 5 nuevos clientes a insertar ---
 //            List<Cliente> nuevosClientes = Arrays.asList(
 //                    new Cliente("12345678A", "Pérez Gómez", 28001),
@@ -135,12 +138,12 @@ public class Main {
 
 //        == INICIO DE LA TRANSACCIÓN ==
 //          La responsabilidad de la transacción se queda en el método principal.
-            connection.setAutoCommit(false);
+            //connection.setAutoCommit(false);
 //
 //            Preparamos los datos para la operación
-            String nuevoCp = "02568";
-            ClienteNuevo nuevoCliente = new ClienteNuevo("24862486S", "ZURITA", "33983");
-            System.out.println("Iniciando operación de modificación de clientes...");
+//            String nuevoCp = "02568";
+//            ClienteNuevo nuevoCliente = new ClienteNuevo("24862486S", "ZURITA", "33983");
+//            System.out.println("Iniciando operación de modificación de clientes...");
 //            Llamamos a nuestro método de lógica de negocio
 //            dao.modificarClientesConResultSet(connection, nuevoCp, nuevoCliente);
 //            Si el método termina sin lanzar una excepción, confirmamos la transacción.
@@ -157,26 +160,26 @@ public class Main {
             );
 //            // == INICIO DE LA TRANSACCIÓN ==
 //            // La gestión de la transacción (commit/rollback) se queda en el método 'main'.
-            connection.setAutoCommit(false);
-            try {
-                //Llamamos a nuestro método reutilizable.
-                int[] resultados = dao.insertarClientesEnLote(connection, clientesNuevos);
-                //== FIN DE LA TRANSACCIÓN (ÉXITO) ==
-                connection.commit();
-                System.out.println("Transacción confirmada (COMMIT) con éxito.");
-                System.out.println("Resultados del lote: " + Arrays.toString(resultados));
-                //Un resultado de 1 (o Statement.SUCCESS_NO_INFO) por cada inserción indica éxito.
-                Arrays.stream(resultados).sequential().forEach(r -> System.out.println("Resultado: " + r));
-
-            } catch (SQLException e) {
-                System.err.println("Error de SQL, se desharán los cambios (ROLLBACK).");
-                e.printStackTrace(System.err);
-                //Si algo falla, hacemos rollback
-                connection.rollback();
-                System.err.println("Rollback realizado.");
-            }
-            connection.setAutoCommit(true);
-            print.imprimirRegistros(connection, CATALOGO, NOMBRE_TABLA);
+            //connection.setAutoCommit(false);
+//            try {
+//                //Llamamos a nuestro método reutilizable.
+//                int[] resultados = dao.insertarClientesEnLote(connection, clientesNuevos);
+//                //== FIN DE LA TRANSACCIÓN (ÉXITO) ==
+//                connection.commit();
+//                System.out.println("Transacción confirmada (COMMIT) con éxito.");
+//                System.out.println("Resultados del lote: " + Arrays.toString(resultados));
+//                //Un resultado de 1 (o Statement.SUCCESS_NO_INFO) por cada inserción indica éxito.
+//                Arrays.stream(resultados).sequential().forEach(r -> System.out.println("Resultado: " + r));
+//
+//            } catch (SQLException e) {
+//                System.err.println("Error de SQL, se desharán los cambios (ROLLBACK).");
+//                e.printStackTrace(System.err);
+//                //Si algo falla, hacemos rollback
+//                connection.rollback();
+//                System.err.println("Rollback realizado.");
+//            }
+//            connection.setAutoCommit(true);
+//            print.imprimirRegistros(connection, CATALOGO, NOMBRE_TABLA);
 //            Cerramos la conexión
             connection.close();
         } catch (Exception e) {
