@@ -635,6 +635,7 @@ public class Dao {
         }
     }
 
+    //Actividad 8 Tema 4
     public void queryDatabase(Connection connection, String nombreTabla) throws SQLException{
         try(connection) {
             if (connection == null) {

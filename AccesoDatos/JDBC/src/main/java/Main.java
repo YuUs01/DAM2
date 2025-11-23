@@ -145,16 +145,16 @@ public class Main {
 //            La lógica de negocio ahora es una simple llamada a un método.
 
             //Actividad 7 Tema 4
-            String dniBusqueda = "78901234X";
-            ResultadoListado resultado = dao.llamarListadoClientes(connection, dniBusqueda);
-            //La responsabilidad de mostrar los datos se queda en el main.
-            System.out.println("=> Valor del parámetro INOUT devuelto: " + resultado.getContadorInOut());
-            System.out.println("Clientes encontrados:");
-
-            int nCli = 0;
-            for (Cliente cliente : resultado.getClientes()) {
-                System.out.println(" [" + (++nCli) + "] " + cliente.toString());
-            }
+//            String dniBusqueda = "78901234X";
+//            ResultadoListado resultado = dao.llamarListadoClientes(connection, dniBusqueda);
+//            //La responsabilidad de mostrar los datos se queda en el main.
+//            System.out.println("=> Valor del parámetro INOUT devuelto: " + resultado.getContadorInOut());
+//            System.out.println("Clientes encontrados:");
+//
+//            int nCli = 0;
+//            for (Cliente cliente : resultado.getClientes()) {
+//                System.out.println(" [" + (++nCli) + "] " + cliente.toString());
+//            }
             //Fin Actividad 7 Tema 4
 
 //        == INICIO DE LA TRANSACCIÓN ==
@@ -202,6 +202,11 @@ public class Main {
 //            connection.setAutoCommit(true);
 //            print.imprimirRegistros(connection, CATALOGO, NOMBRE_TABLA);
 //            Cerramos la conexión
+
+            //Actividad 8 Tema 4
+            dao.queryDatabase(connection, NOMBRE_TABLA);
+            //Fin Actividad 8 Tema 4
+
             connection.close();
         } catch (Exception e) {
             System.err.println("Fallo al intentar obtener la conexión a la base de datos.");
