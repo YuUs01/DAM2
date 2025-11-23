@@ -62,8 +62,11 @@ public class Main {
             //Fin Actividad 1 Tema 4
 
             //Actividad 2 Tema 4
-            print.imprimirRegistros2(connection, CATALOGO, NOMBRE_TABLA);
+            //print.imprimirRegistros2(connection, CATALOGO, NOMBRE_TABLA);
             //Fin Actividad 2 Tema 4
+
+            //Actividad 3 Tema 4
+            print.mostrarNombresInversoConLista(connection);
 
             // --- Datos de los 5 nuevos clientes a insertar ---
 //            List<Cliente> nuevosClientes = Arrays.asList(

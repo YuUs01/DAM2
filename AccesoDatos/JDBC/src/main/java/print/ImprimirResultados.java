@@ -146,24 +146,25 @@ public class ImprimirResultados {
 
         String sql = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM employees";
 
+        // Lista para guardar los nombres
         List<String> nombres = new ArrayList<>();
 
-        // 1. Ejecutar consulta y guardar los resultados en la lista
-        try (PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
+        // El PreparedStatement puede ser normal, no hace falta scrollable
+        try (PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
 
+            // Guardar todos los nombres en la lista
             while (rs.next()) {
                 nombres.add(rs.getString("name"));
             }
         }
 
-        // 2. Mostrar la lista en orden inverso
+        // Ahora recorrer la lista al revés
         System.out.println("Nombres en orden inverso:");
         for (int i = nombres.size() - 1; i >= 0; i--) {
             System.out.println(nombres.get(i));
         }
     }
-
 
     //Actividad 5 Tema 4
     public void mostrarClientesPorDNI(Connection conn, String[] dnis) throws SQLException {
