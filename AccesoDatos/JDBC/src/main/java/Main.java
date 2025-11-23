@@ -87,8 +87,8 @@ public class Main {
             //dao.insertarClientes(connection, nuevosClientes);
 
             //Actividad 5 Tema 4
-            String [] dnis = {"12345678A", "23456789B", "34567890C", "45678901D", "56789012E"};
-            print.mostrarClientesPorDNI(connection, dnis);
+            //String [] dnis = {"12345678A", "23456789B", "34567890C", "45678901D", "56789012E"};
+            //print.mostrarClientesPorDNI(connection, dnis);
             //Fin Actividad 5 Tema 4
 
             //print.imprimirRegistros(connection, CATALOGO, NOMBRE_TABLA);
@@ -109,9 +109,12 @@ public class Main {
                     new Company("87562938D", "NTT", "IT"),
                     new Company("23498757E", "IBM", "HARDWARE - SOFTEARE")
             );
-//            dao.crearTablaCompaniesSiNoExiste();
-//            dao.insertarCompaniesBatchConTransaccion(connection, nuevasCompanies);
 
+            //Actividad 6 Tema 4
+            dao.crearTablaCompaniesSiNoExiste();
+            dao.insertarCompaniesBatchConTransaccion(connection, nuevasCompanies);
+            print.imprimirRegistros(connection, CATALOGO, "COMPANIES");
+            //Fin Actividad 6 Tema 4
 
             // Preparamos los datos para las nuevas facturas
             List<String> dnis2 = Arrays.asList(
