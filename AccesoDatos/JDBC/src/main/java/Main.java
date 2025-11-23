@@ -111,9 +111,9 @@ public class Main {
             );
 
             //Actividad 6 Tema 4
-            dao.crearTablaCompaniesSiNoExiste();
-            dao.insertarCompaniesBatchConTransaccion(connection, nuevasCompanies);
-            print.imprimirRegistros(connection, CATALOGO, "COMPANIES");
+            //dao.crearTablaCompaniesSiNoExiste();
+            //dao.insertarCompaniesBatchConTransaccion(connection, nuevasCompanies);
+            //print.imprimirRegistros(connection, CATALOGO, "COMPANIES");
             //Fin Actividad 6 Tema 4
 
             // Preparamos los datos para las nuevas facturas
@@ -143,18 +143,19 @@ public class Main {
 //            print.imprimirRegistros(connection, CATALOGO, T_FACTURAS);
 //            print.imprimirRegistros(connection, CATALOGO, T_LINEAS_FACTURA);
 //            La lógica de negocio ahora es una simple llamada a un método.
-//            String dniBusqueda = "78901234X";
-//            ResultadoListado resultado = dao.llamarListadoClientes(connection, dniBusqueda);
-//            La responsabilidad de mostrar los datos se queda en el main.
-//            System.out.println("=> Valor del parámetro INOUT devuelto: " + resultado.getContadorInOut());
-//            System.out.println("Clientes encontrados:");
-//
-//            int nCli = 0;
-//            for (Cliente cliente : resultado.getClientes()) {
-//                System.out.println(" [" + (++nCli) + "] " + cliente.toString());
-//            }
 
-//            dao.obtenerYMostrarApellidosAlternativo("78901234X", connection);
+            //Actividad 7 Tema 4
+            String dniBusqueda = "78901234X";
+            ResultadoListado resultado = dao.llamarListadoClientes(connection, dniBusqueda);
+            //La responsabilidad de mostrar los datos se queda en el main.
+            System.out.println("=> Valor del parámetro INOUT devuelto: " + resultado.getContadorInOut());
+            System.out.println("Clientes encontrados:");
+
+            int nCli = 0;
+            for (Cliente cliente : resultado.getClientes()) {
+                System.out.println(" [" + (++nCli) + "] " + cliente.toString());
+            }
+            //Fin Actividad 7 Tema 4
 
 //        == INICIO DE LA TRANSACCIÓN ==
 //          La responsabilidad de la transacción se queda en el método principal.
