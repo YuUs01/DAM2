@@ -6,11 +6,13 @@ public class EjecutarProcesoProcessBuilder {
     public static void main(String[] args) {
 
         try{
-            ProcessBuilder pb = new ProcessBuilder("notepad");
+            ProcessBuilder pb = new ProcessBuilder("notepad", "test.txt");
             Process proceso = pb.start();
 
+            boolean alive = proceso.isAlive();
+            System.out.println(alive);
             int exitCode = proceso.waitFor();
-            System.out.println("Código de salida " + exitCode);
+            System.out.println("Exit code:  " + exitCode);
 
         } catch (IOException ioe) {
             System.err.println("No se pudo ejecutar el proceso. " +
